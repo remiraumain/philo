@@ -6,7 +6,7 @@
 /*   By: rraumain <rraumain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:42:07 by rraumain          #+#    #+#             */
-/*   Updated: 2025/03/06 21:41:59 by rraumain         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:27:21 by rraumain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	print_action(philo, "is thinking");
-	if (philo->id % 2 == 0)
-		usleep(50);
-	while (1)
+	while (philo->data->nb_philos > 1)
 	{
 		pthread_mutex_lock(&philo->data->running_lock);
 		running = philo->data->is_running;
@@ -35,8 +33,11 @@ static void	*routine(void *arg)
 		drop_forks(philo);
 		philo_sleep(philo);
 		print_action(philo, "is thinking");
-		usleep(75);
+		usleep(50);
 	}
+	pthread_mutex_lock(philo->left_fork);
+	print_action(philo, "has taken a fork");
+	return (NULL);
 }
 
 static int	check_philos(t_data *data, int *finished_count)

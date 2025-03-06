@@ -6,7 +6,7 @@
 /*   By: rraumain <rraumain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:21:49 by rraumain          #+#    #+#             */
-/*   Updated: 2025/03/06 18:50:09 by rraumain         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:27:56 by rraumain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	parse(int argc, char **argv, t_data *data)
 	if (argc < 5 || argc > 6)
 	{
 		ft_error("invalid args: ./philo nb_philos time_to_die time_to_eat \
-		time_to_sleep [nb_meals]");
+time_to_sleep [nb_meals]");
 		return (0);
 	}
 	if (!set_args(argv, data))

@@ -6,7 +6,7 @@
 /*   By: rraumain <rraumain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:41:30 by rraumain          #+#    #+#             */
-/*   Updated: 2025/03/06 21:42:12 by rraumain         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:14:45 by rraumain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ void	take_forks(t_philo *philo)
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->left_fork);
+		print_action(philo, "has taken a fork");
 		pthread_mutex_lock(philo->right_fork);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->right_fork);
+		print_action(philo, "has taken a fork");
 		pthread_mutex_lock(philo->left_fork);
 	}
-	print_action(philo, "has taken a fork");
 	print_action(philo, "has taken a fork");
 }
 
