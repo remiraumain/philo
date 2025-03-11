@@ -6,7 +6,7 @@
 #    By: rraumain <rraumain@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/06 16:19:20 by rraumain          #+#    #+#              #
-#    Updated: 2025/03/06 18:45:14 by rraumain         ###   ########.fr        #
+#    Updated: 2025/03/06 23:42:04 by rraumain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_PARSING = $(addprefix parsing/, init.c parse.c)
-SRC_SIMULATION = $(addprefix simulation/, actions.c print.c simulation.c)
+SRC_SIMULATION = $(addprefix simulation/, actions.c checks.c print.c priority.c simulation.c)
 SRC_UTILS = $(addprefix utils/, cleanup.c error.c string.c time.c)
 SRC = $(addprefix src/, main.c $(SRC_PARSING) $(SRC_SIMULATION) $(SRC_UTILS))
 INCLUDES = -Iincludes

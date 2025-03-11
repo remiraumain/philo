@@ -6,7 +6,7 @@
 /*   By: rraumain <rraumain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:06:36 by rraumain          #+#    #+#             */
-/*   Updated: 2025/03/06 21:42:46 by rraumain         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:08:42 by rraumain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	clear_mutex(t_data *data)
 	{
 		pthread_mutex_destroy(&data->print_lock);
 		pthread_mutex_destroy(&data->running_lock);
+		pthread_mutex_destroy(&data->priority_lock);
 	}
 }
 

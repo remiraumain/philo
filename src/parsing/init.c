@@ -6,7 +6,7 @@
 /*   By: rraumain <rraumain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:47:30 by rraumain          #+#    #+#             */
-/*   Updated: 2025/03/06 21:43:28 by rraumain         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:55:23 by rraumain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,13 @@ static int	init_data_mutex(t_data *data)
 		ft_error("Failed to initialize running mutex");
 		return (0);
 	}
+	if (pthread_mutex_init(&data->priority_lock, NULL) != 0)
+	{
+		pthread_mutex_destroy(&data->print_lock);
+		pthread_mutex_destroy(&data->running_lock);
+		ft_error("Failed to initialize running mutex");
+		return (0);
+	}
 	data->data_lock_init = 1;
 	return (1);
 }
@@ -89,5 +96,6 @@ int	init(t_data *data)
 		clear(data);
 		return (0);
 	}
+	data->priority_id = -1;
 	return (1);
 }

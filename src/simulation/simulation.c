@@ -6,7 +6,7 @@
 /*   By: rraumain <rraumain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:42:07 by rraumain          #+#    #+#             */
-/*   Updated: 2025/03/06 22:27:21 by rraumain         ###   ########.fr       */
+/*   Updated: 2025/03/11 09:36:31 by rraumain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	print_action(philo, "is thinking");
+	if (philo->id % 2 == 0)
+		usleep(50);
 	while (philo->data->nb_philos > 1)
 	{
 		pthread_mutex_lock(&philo->data->running_lock);
@@ -28,15 +30,16 @@ static void	*routine(void *arg)
 		pthread_mutex_unlock(&philo->data->running_lock);
 		if (!running || finished)
 			return (NULL);
+		delay_priority(philo);
 		take_forks(philo);
+		reset_priority(philo);
 		eat(philo);
 		drop_forks(philo);
 		philo_sleep(philo);
 		print_action(philo, "is thinking");
-		usleep(50);
+		usleep(100);
 	}
 	pthread_mutex_lock(philo->left_fork);
-	print_action(philo, "has taken a fork");
 	return (NULL);
 }
 
@@ -44,8 +47,12 @@ static int	check_philos(t_data *data, int *finished_count)
 {
 	int		finished;
 	long	last_meal;
+	long	max_time_last_meal;
+	int		philo_in_danger;
 	int		i;
 
+	max_time_last_meal = 0;
+	philo_in_danger = -1;
 	i = 0;
 	while (i < data->nb_philos)
 	{
@@ -53,14 +60,15 @@ static int	check_philos(t_data *data, int *finished_count)
 		last_meal = get_time_in_ms() - data->philos[i].last_meal_time;
 		finished = data->philos[i].finished;
 		pthread_mutex_unlock(&data->philos[i].data_lock);
-		if (!finished && last_meal > data->time_to_die)
-		{
-			died(&data->philos[i]);
+		if (check_is_dead(data, &data->philos[i], finished, last_meal))
 			return (0);
-		}
+		if (!finished)
+			set_if_in_danger(&data->philos[i], last_meal, &max_time_last_meal,
+			&philo_in_danger);
 		*finished_count += finished;
 		i++;
 	}
+	set_priority(data, philo_in_danger);
 	return (1);
 }
 
@@ -70,6 +78,7 @@ static void	monitor(t_data *data)
 
 	while (1)
 	{
+		usleep(50);
 		finished_count = 0;
 		if (!check_philos(data, &finished_count))
 			return ;
@@ -80,7 +89,6 @@ static void	monitor(t_data *data)
 			pthread_mutex_unlock(&data->running_lock);
 			return ;
 		}
-		usleep(100);
 	}
 }
 
