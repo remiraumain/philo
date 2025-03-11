@@ -6,30 +6,27 @@
 /*   By: rraumain <rraumain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:42:07 by rraumain          #+#    #+#             */
-/*   Updated: 2025/03/11 09:36:31 by rraumain         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:52:15 by rraumain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	*routine(void *arg)
+static void	actions(t_philo *philo)
 {
-	t_philo	*philo;
 	int		running;
 	int		finished;
 
-	philo = (t_philo *)arg;
-	print_action(philo, "is thinking");
 	if (philo->id % 2 == 0)
 		usleep(50);
-	while (philo->data->nb_philos > 1)
+	while (1)
 	{
 		pthread_mutex_lock(&philo->data->running_lock);
 		running = philo->data->is_running;
 		finished = philo->finished;
 		pthread_mutex_unlock(&philo->data->running_lock);
 		if (!running || finished)
-			return (NULL);
+			return ;
 		delay_priority(philo);
 		take_forks(philo);
 		reset_priority(philo);
@@ -39,7 +36,21 @@ static void	*routine(void *arg)
 		print_action(philo, "is thinking");
 		usleep(100);
 	}
-	pthread_mutex_lock(philo->left_fork);
+}
+
+static void	*routine(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	if (philo->data->nb_philos == 1)
+	{
+		pthread_mutex_lock(philo->left_fork);
+		print_action(philo, "has taken a fork");
+		pthread_mutex_unlock(philo->left_fork);
+	}
+	else
+		actions(philo);
 	return (NULL);
 }
 
@@ -64,7 +75,7 @@ static int	check_philos(t_data *data, int *finished_count)
 			return (0);
 		if (!finished)
 			set_if_in_danger(&data->philos[i], last_meal, &max_time_last_meal,
-			&philo_in_danger);
+				&philo_in_danger);
 		*finished_count += finished;
 		i++;
 	}

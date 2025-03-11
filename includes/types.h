@@ -6,7 +6,7 @@
 /*   By: rraumain <rraumain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:22:50 by rraumain          #+#    #+#             */
-/*   Updated: 2025/03/06 23:08:45 by rraumain         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:53:33 by rraumain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct s_data
 	pthread_mutex_t	running_lock;
 	int				data_lock_init;
 	int				thread_init;
-	int             priority_id;
-    pthread_mutex_t priority_lock;
+	int				priority_id;
+	pthread_mutex_t	priority_lock;
 }	t_data;
 
 #endif

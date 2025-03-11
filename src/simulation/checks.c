@@ -6,7 +6,7 @@
 /*   By: rraumain <rraumain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 23:26:52 by rraumain          #+#    #+#             */
-/*   Updated: 2025/03/06 23:43:39 by rraumain         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:51:45 by rraumain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	check_is_dead(t_data *data, t_philo *philo, int finished, long last_meal)
 	return (0);
 }
 
-void	set_if_in_danger(t_philo *philo, long last_meal, long *max_time_last_meal, int *philo_in_danger)
+void	set_if_in_danger(t_philo *philo, long last_meal,
+	long *max_time_last_meal, int *philo_in_danger)
 {
 	if (last_meal > *max_time_last_meal)
 	{

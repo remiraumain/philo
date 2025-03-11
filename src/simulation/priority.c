@@ -6,7 +6,7 @@
 /*   By: rraumain <rraumain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 23:12:21 by rraumain          #+#    #+#             */
-/*   Updated: 2025/03/07 01:17:40 by rraumain         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:51:56 by rraumain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	delay_priority(t_philo *philo)
 void	reset_priority(t_philo *philo)
 {
 	int	priority_id;
-	
+
 	pthread_mutex_lock(&philo->data->priority_lock);
 	priority_id = philo->data->priority_id;
 	pthread_mutex_unlock(&philo->data->priority_lock);

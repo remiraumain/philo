@@ -6,7 +6,7 @@
 /*   By: rraumain <rraumain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:29:17 by rraumain          #+#    #+#             */
-/*   Updated: 2025/03/06 18:47:34 by rraumain         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:08:04 by rraumain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void			ft_error(char *message);
 
 //	STRING
-unsigned int	my_strlen(char *string);
+unsigned int	ft_strlen(char *string);
 int				ft_custom_atoi(char *arg);
 
 //	TIME
