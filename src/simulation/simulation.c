@@ -6,7 +6,7 @@
 /*   By: rraumain <rraumain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:42:07 by rraumain          #+#    #+#             */
-/*   Updated: 2025/03/11 14:52:15 by rraumain         ###   ########.fr       */
+/*   Updated: 2025/03/12 09:45:41 by rraumain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static void	actions(t_philo *philo)
 	int		finished;
 
 	if (philo->id % 2 == 0)
+	{
+		print_action(philo, "is thinking");
 		usleep(50);
+	}
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->running_lock);
